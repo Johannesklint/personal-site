@@ -3,9 +3,17 @@ import Document, { Html, Head, Main, NextScript } from "next/document"
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
+    const originalRenderPage = ctx.renderPage
+    ctx.renderPage = () =>
+      originalRenderPage({
+        enhanceApp: (App) => App,
+        enhanceComponent: (Component) => Component,
+      })
+
     const initialProps = await Document.getInitialProps(ctx)
-    return { ...initialProps }
+    return initialProps
   }
+
   render() {
     return (
       <Html>
@@ -14,6 +22,7 @@ class MyDocument extends Document {
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
+          {this.props.styleTags}
         </Head>
         <body>
           <Main />

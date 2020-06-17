@@ -1,18 +1,49 @@
 import React from "react"
+import styled from "styled-components"
+
+const Main = styled.main`
+  font-size: 1.125rem;
+  padding: 4px;
+`
+const TextArea = styled.textarea`
+  width: 350px;
+  height: 300px;
+`
+const Button = styled.button`
+  box-shadow: 9px 3px 12px -4px #abbda6;
+  background-color: #51758c;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  padding: 14px 24px;
+  text-decoration: none;
+
+  ::hover {
+    background-color: #b3bdae;
+  }
+  ::active {
+    position: relative;
+    top: 1px;
+  }
+`
 
 function EditField({ text, setTextvalue, handleTextClick }) {
   return (
     <>
-      <textarea
+      <TextArea
         width="500px"
         onChange={(event) => {
           setTextvalue(event.target.value)
         }}
         defaultValue={text}
-      ></textarea>
-      <button className="btn" onClick={handleTextClick}>
+      ></TextArea>
+      <Button className="btn" onClick={handleTextClick}>
         Approved
-      </button>
+      </Button>
     </>
   )
 }
@@ -31,7 +62,7 @@ export default function Personal({
   }
 
   return (
-    <main>
+    <Main>
       {hasClicked ? (
         <EditField
           text={text}
@@ -43,39 +74,6 @@ export default function Personal({
           <div dangerouslySetInnerHTML={{ __html: text }} />
         </div>
       )}
-      <style>{`
-          main {
-            display: flex;
-            flex-direction: column;
-            padding: 2.5rem;
-            width: 50%;
-            font-size: 1.125rem;
-          }
-          textarea {
-            width: 350px;
-            height: 300px;
-          }
-          .btn {
-            box-shadow: 9px 3px 12px -4px #abbda6;
-            background-color:#51758c;
-            border-radius:4px;
-            display: flex;
-            justify-content: center;
-            cursor:pointer;
-            color:#ffffff;
-            font-family:Arial;
-            font-size:17px;
-            padding: 14px 24px;
-            text-decoration:none;
-          }
-          .btn:hover {
-            background-color:#b3bdae;
-          }
-          .btn:active {
-            position:relative;
-            top:1px;
-          }
-          `}</style>
-    </main>
+    </Main>
   )
 }

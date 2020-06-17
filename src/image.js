@@ -3,17 +3,8 @@ import React from "react"
 export default function Image({ image }) {
   return (
     <aside>
-      <img className="glitch" data-text="CYBERCOUNTESS" src={image} />
+      <img className="glitch" src={image} />
       <style jsx>{`
-        aside {
-          position: fixed;
-          top: 0;
-          bottom: 0;
-          width: 50%;
-          height: 100%;
-          right: 0;
-          padding: 2.5rem;
-        }
         .glitch {
           position: relative;
           animation: glitch 1s 1s infinite;
