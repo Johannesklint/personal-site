@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --ext .jsx --ext .js pages/",
+    "lint": "eslint --ext .jsx --ext .js pages/ src/",
     "test": "jest --watchAll"
   },
   "dependencies": {
