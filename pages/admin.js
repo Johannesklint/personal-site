@@ -1,10 +1,31 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import firebase from "../src/utils/firebaseConfig"
 import Home from "."
+import Login from "../src/login"
+
+function useAuthentication() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  useEffect(() => {
+    if (JSON.parse(sessionStorage.getItem("isAuth"))) {
+      setIsLoggedIn(true)
+    }
+  }, [])
+
+  function handleLogin(value) {
+    if (value === process.env.NEXT_PUBLIC_ADMIN_AUTH) {
+      setIsLoggedIn(true)
+    } else {
+      setIsLoggedIn(false)
+    }
+  }
+
+  return [isLoggedIn, handleLogin]
+}
 
 export default function Admin({ text, image }) {
   const [hasClickedTextArea, setHasClickedTextArea] = useState(false)
   const [textValue, setTextvalue] = useState("")
+  const [isLoggedIn, handleLogin] = useAuthentication()
 
   function writeText() {
     firebase.database().ref("content/").update({
@@ -27,6 +48,9 @@ export default function Admin({ text, image }) {
         image: reader.result,
       })
     }
+  }
+  if (!isLoggedIn) {
+    return <Login handleLogin={handleLogin} />
   }
 
   return (
