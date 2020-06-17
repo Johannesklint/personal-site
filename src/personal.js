@@ -36,7 +36,7 @@ const Button = styled.button`
   }
 `
 
-function EditField({ text, setTextvalue, handleTextClick }) {
+function EditField({ text, setTextvalue, submitText }) {
   return (
     <>
       <TextArea
@@ -45,23 +45,21 @@ function EditField({ text, setTextvalue, handleTextClick }) {
         }}
         defaultValue={text}
       ></TextArea>
-      <Button className="btn" onClick={handleTextClick}>
-        Approved
-      </Button>
+      <Button onClick={submitText}>Approved</Button>
     </>
   )
 }
 
 export default function Personal({
-  callback,
   handleTextClick,
+  submitText,
   hasClicked,
   setTextvalue,
   text,
 }) {
   function handleCallback() {
-    if (typeof callback === "function") {
-      callback()
+    if (typeof handleTextClick === "function") {
+      handleTextClick()
     }
   }
 
@@ -71,7 +69,7 @@ export default function Personal({
         <EditField
           text={text}
           setTextvalue={setTextvalue}
-          handleTextClick={handleTextClick}
+          submitText={submitText}
         />
       ) : (
         <div

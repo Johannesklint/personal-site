@@ -11,13 +11,13 @@ expect.extend({ toBeInTheDocument, toHaveValue })
 
 test("hasClicked is true it renders EditField", () => {
   const setTextvalue = jest.fn()
-  const handleTextClick = jest.fn()
+  const submitText = jest.fn()
   render(
     <Personal
       hasClicked
       text="text"
       setTextvalue={setTextvalue}
-      handleTextClick={handleTextClick}
+      submitText={submitText}
     />
   )
   const textArea = screen.getByRole("textbox")
@@ -30,15 +30,21 @@ test("hasClicked is true it renders EditField", () => {
   expect(setTextvalue).toBeCalledTimes(str.length + 1)
 
   userEvent.click(screen.getByRole("button"))
-  expect(handleTextClick).toHaveBeenCalled()
+  expect(submitText).toHaveBeenCalled()
 })
 
 test("hasClicked is false renders field for text", () => {
-  const callback = jest.fn()
-  render(<Personal callback={callback} hasClicked={false} text="text" />)
+  const handleTextClick = jest.fn()
+  render(
+    <Personal
+      handleTextClick={handleTextClick}
+      hasClicked={false}
+      text="text"
+    />
+  )
   const field = screen.getByTestId("personal-text")
 
   expect(field).toBeInTheDocument()
   userEvent.click(field)
-  expect(callback).toHaveBeenCalled()
+  expect(handleTextClick).toHaveBeenCalled()
 })

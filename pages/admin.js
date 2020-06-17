@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import firebase from "../src/firebaseConfig"
+import firebase from "../src/utils/firebaseConfig"
 import Home from "."
 
 export default function Admin({ text, image }) {
@@ -34,9 +34,9 @@ export default function Admin({ text, image }) {
       <Home
         text={text}
         image={image}
-        callback={handleTextClick}
+        handleTextClick={handleTextClick}
         hasClicked={hasClickedTextArea}
-        handleTextClick={writeText}
+        submitText={writeText}
         setTextvalue={setTextvalue}
       >
         <label htmlFor="file-uploader">Upload image:</label>

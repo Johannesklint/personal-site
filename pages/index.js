@@ -1,7 +1,7 @@
 import React from "react"
 import Head from "next/head"
 import styled from "styled-components"
-import firebase from "../src/firebaseConfig"
+import firebase from "../src/utils/firebaseConfig"
 import Image from "../src/image"
 import Personal from "../src/personal"
 import Loading from "../src/loading"
@@ -45,20 +45,7 @@ export default function Home({ children, text, image, ...props }) {
       <Personal {...props} text={text} />
       <Image image={image} />
       {children}
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
+      <GlobalStyles />
     </Headers>
   )
 }
@@ -76,4 +63,22 @@ export async function getStaticProps() {
       image,
     },
   }
+}
+
+function GlobalStyles() {
+  return (
+    <style jsx global>{`
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+          Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+    `}</style>
+  )
 }
