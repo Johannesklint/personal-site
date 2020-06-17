@@ -3,7 +3,7 @@ import React from "react"
 export default function Image({ image }) {
   return (
     <aside>
-      <img className="glitch" src={image} />
+      <img className="glitch" src={image} alt="personal-image" />
       <style jsx>{`
         .glitch {
           position: relative;
@@ -38,7 +38,7 @@ export default function Image({ image }) {
           1% {
             transform: rotateX(10deg) skewX(90deg);
           }
-          2% {
+          6% {
             transform: rotateX(0deg) skewX(0deg);
           }
         }

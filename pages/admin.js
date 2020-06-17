@@ -39,7 +39,13 @@ export default function Admin({ text, image }) {
         handleTextClick={writeText}
         setTextvalue={setTextvalue}
       >
-        <input type="file" accept="image/*" onChange={uploadImage} />
+        <label htmlFor="file-uploader">Upload image:</label>
+        <input
+          id="file-uploader"
+          accept="image/*"
+          onChange={uploadImage}
+          type="file"
+        />
       </Home>
     </div>
   )

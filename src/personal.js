@@ -35,7 +35,6 @@ function EditField({ text, setTextvalue, handleTextClick }) {
   return (
     <>
       <TextArea
-        width="500px"
         onChange={(event) => {
           setTextvalue(event.target.value)
         }}
@@ -70,9 +69,11 @@ export default function Personal({
           handleTextClick={handleTextClick}
         />
       ) : (
-        <div onClick={handleCallback}>
-          <div dangerouslySetInnerHTML={{ __html: text }} />
-        </div>
+        <div
+          data-testid="personal-text"
+          onClick={handleCallback}
+          dangerouslySetInnerHTML={{ __html: text }}
+        />
       )}
     </Main>
   )
