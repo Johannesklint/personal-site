@@ -1,67 +1,79 @@
 import React from "react"
 
-const tech = [
-  { title: "Apollo Graphql", href: "https://www.apollographql.com/" },
-  { title: "Testing library", href: "https://testing-library.com/" },
-  { title: "Express", href: "https://expressjs.com/" },
-  { title: "Emotion", href: "https://emotion.sh/docs/introduction" },
-]
+function EditField({ text, setTextvalue, handleTextClick }) {
+  return (
+    <>
+      <textarea
+        width="500px"
+        onChange={(event) => {
+          setTextvalue(event.target.value)
+        }}
+        defaultValue={text}
+      ></textarea>
+      <button className="btn" onClick={handleTextClick}>
+        Approved
+      </button>
+    </>
+  )
+}
+
 export default function Personal({
   callback,
   handleTextClick,
   hasClicked,
   setTextvalue,
+  text,
 }) {
   function handleCallback() {
     if (typeof callback === "function") {
       callback()
     }
   }
+
   return (
     <main>
       {hasClicked ? (
-        <>
-          <textarea
-            onChange={(event) => {
-              setTextvalue(event.target.value)
-            }}
-            defaultValue="write your dumb content here…"
-          ></textarea>
-          <button onClick={handleTextClick}>Approved</button>
-        </>
+        <EditField
+          text={text}
+          setTextvalue={setTextvalue}
+          handleTextClick={handleTextClick}
+        />
       ) : (
         <div onClick={handleCallback}>
-          <p>
-            johannes Klint is a software developer that is happy as long as he
-            gets to write code, preferably javascript
-          </p>
-          <p>
-            he is currently working at etraveli group, where he builds a large{" "}
-            <a href="https://reactjs.org/">react</a> application with all the
-            sweet tech such as
-          </p>
-          <ul>
-            {tech.map(({ title, href }) => (
-              <li key={title}>
-                <a href={href}>{title}</a>
-              </li>
-            ))}
-          </ul>
-          <p>he also writes some Java</p>
-          <p>
-            find out more at{" "}
-            <a href="https://github.com/Johannesklint">github</a>
-          </p>
+          <div dangerouslySetInnerHTML={{ __html: text }} />
         </div>
       )}
       <style>{`
           main {
-            border: 1px solid red;
             display: flex;
             flex-direction: column;
             padding: 2.5rem;
             width: 50%;
             font-size: 1.125rem;
+          }
+          textarea {
+            width: 350px;
+            height: 300px;
+          }
+          .btn {
+            box-shadow: 9px 3px 12px -4px #abbda6;
+            background-color:#51758c;
+            border-radius:4px;
+            display: flex;
+            justify-content: center;
+            cursor:pointer;
+            color:#ffffff;
+            font-family:Arial;
+            font-size:17px;
+            padding: 14px 24px;
+            text-decoration:none;
+          }
+          .btn:hover {
+            background-color:#b3bdae;
+          }
+          .btn:active {
+            position:relative;
+            top:1px;
           }
           `}</style>
     </main>

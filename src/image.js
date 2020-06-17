@@ -1,12 +1,9 @@
 import React from "react"
 
-export default function Image() {
+export default function Image({ image }) {
   return (
     <aside>
-      {/* <StyledImage src="/deer.jpeg" alt="my image" /> */}
-      <div className="container">
-        <img className="glitch" data-text="CYBERCOUNTESS" src="/deer.jpeg" />
-      </div>
+      <img className="glitch" data-text="CYBERCOUNTESS" src={image} />
       <style jsx>{`
         aside {
           position: fixed;
@@ -16,9 +13,6 @@ export default function Image() {
           height: 100%;
           right: 0;
           padding: 2.5rem;
-        }
-        .container {
-          border: 2px solid red;
         }
         .glitch {
           position: relative;
