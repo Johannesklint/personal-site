@@ -6,16 +6,23 @@ import Login from "../src/login"
 function useAuthentication() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   useEffect(() => {
-    if (JSON.parse(sessionStorage.getItem("isAuth"))) {
+    if (
+      JSON.parse(
+        sessionStorage.getItem("isAuth") === process.env.NEXT_PUBLIC_ADMIN_AUTH
+      )
+    ) {
       setIsLoggedIn(true)
     }
   }, [])
 
-  function handleLogin(value) {
+  function handleLogin(event) {
+    const { value } = event.target
     if (value === process.env.NEXT_PUBLIC_ADMIN_AUTH) {
       setIsLoggedIn(true)
+      sessionStorage.setItem("isAuth", process.env.NEXT_PUBLIC_ADMIN_AUTH)
     } else {
       setIsLoggedIn(false)
+      sessionStorage.removeItem("isAuth")
     }
   }
 
