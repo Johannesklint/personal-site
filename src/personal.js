@@ -3,7 +3,12 @@ import styled from "styled-components"
 
 const Main = styled.main`
   font-size: 1.125rem;
-  padding: 4px;
+  padding: 24px;
+  width: 100%;
+
+  @media (min-width: 964px) {
+    width: 40%;
+  }
 `
 const TextArea = styled.textarea`
   width: 350px;
