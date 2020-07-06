@@ -20,18 +20,19 @@ const Wrapper = styled.div`
 
 function Headers({ children }) {
   return (
-    <Wrapper>
+    <>
       <Head>
         <title>Johannes Klint</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {children}
-    </Wrapper>
+      <Wrapper>{children}</Wrapper>
+    </>
   )
 }
 
 export default function Home({ children, text, image, ...props }) {
   const isLoading = !text && !image
+
   if (isLoading) {
     return (
       <Headers>
