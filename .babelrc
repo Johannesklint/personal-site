@@ -1,6 +1,16 @@
 {
   "presets": [
-    "next/babel"
+    [
+      "next/babel",
+      {
+        "preset-env": {
+          "targets": ["last 2 versions"]
+        },
+        "transform-runtime": {},
+        "styled-jsx": {},
+        "class-properties": {}
+      }
+    ]
   ],
   "plugins": [
     [
