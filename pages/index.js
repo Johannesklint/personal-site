@@ -65,7 +65,7 @@ export async function getStaticProps() {
   }
 }
 
-function GlobalStyles() {
+export function GlobalStyles() {
   return (
     <style jsx global>{`
       html,
