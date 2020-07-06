@@ -45,7 +45,7 @@ function EditField({ text, setTextvalue, submitText }) {
         }}
         defaultValue={text}
       ></TextArea>
-      <Button onClick={submitText}>Approved</Button>
+      <Button onClick={submitText}>Ok</Button>
     </>
   )
 }
