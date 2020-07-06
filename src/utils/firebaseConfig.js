@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import * as firebase from "firebase/app"
 import "firebase/database"
+import "firebase/auth"
 
 function initializeFireBase() {
   if (!firebase.apps.length) {

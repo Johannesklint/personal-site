@@ -2,37 +2,42 @@ import React, { useState, useEffect } from "react"
 import firebase from "../src/utils/firebaseConfig"
 import Home from "."
 import Login from "../src/login"
+import Loading from "../src/loading"
 
 function useAuthentication() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [hasError, setHasError] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
-    if (
-      JSON.parse(
-        sessionStorage.getItem("isAuth") === process.env.NEXT_PUBLIC_ADMIN_AUTH
-      )
-    ) {
-      setIsLoggedIn(true)
-    }
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setIsLoggedIn(true)
+        setIsLoading(false)
+      }
+    })
   }, [])
 
-  function handleLogin(event) {
-    const { value } = event.target
-    if (value === process.env.NEXT_PUBLIC_ADMIN_AUTH) {
-      setIsLoggedIn(true)
-      sessionStorage.setItem("isAuth", process.env.NEXT_PUBLIC_ADMIN_AUTH)
-    } else {
-      setIsLoggedIn(false)
-      sessionStorage.removeItem("isAuth")
+  function handleLogin({ email, password }) {
+    return (event) => {
+      event.preventDefault()
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .catch(() => {
+          setHasError("Either email or password is wrong…")
+          setIsLoggedIn(false)
+        })
     }
   }
 
-  return [isLoggedIn, handleLogin]
+  return [isLoggedIn, handleLogin, { error: hasError, loading: isLoading }]
 }
 
 export default function Admin({ text, image }) {
   const [hasClickedTextArea, setHasClickedTextArea] = useState(false)
   const [textValue, setTextvalue] = useState("")
-  const [isLoggedIn, handleLogin] = useAuthentication()
+  const [isLoggedIn, handleLogin, { loading, error }] = useAuthentication()
 
   function writeText() {
     firebase.database().ref("content/").update({
@@ -56,8 +61,13 @@ export default function Admin({ text, image }) {
       })
     }
   }
+
+  if (loading) {
+    return <Loading>Loading…</Loading>
+  }
+
   if (!isLoggedIn) {
-    return <Login handleLogin={handleLogin} />
+    return <Login handleLogin={handleLogin} error={error} />
   }
 
   return (
@@ -89,10 +99,18 @@ export async function getStaticProps() {
     .once("value")
     .then((res) => res.val())
 
+  // let isAuth = false
+  // firebase.auth().onAuthStateChanged((user) => {
+  //   if (user) {
+  //     isAuth = true
+  //   }
+  // })
+
   return {
     props: {
       text: text.replace(/['"]+/g, ""),
       image,
+      // isAuth,
     },
   }
 }
