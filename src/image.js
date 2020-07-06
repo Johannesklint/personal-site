@@ -1,11 +1,14 @@
 import React from "react"
 
+
 export default function Image({ image }) {
   return (
     <aside>
       <img className="glitch" src={image} alt="personal-image" />
       <style jsx>{`
         .glitch {
+          height: auto;
+          width: 100%;
           position: relative;
           animation: glitch 1s 1s infinite;
         }
